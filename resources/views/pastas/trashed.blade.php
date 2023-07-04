@@ -52,12 +52,38 @@
                             <button class="btn btn-success" href="">Ripristina</button>
                         </form>
 
-                        <form action="{{ route('pastas.hardDelete', ['pasta' => $pasta->id]) }}" method="POST" class="d-inline-block">
+                        {{-- <form action="{{ route('pastas.hardDelete', ['pasta' => $pasta->id]) }}" method="POST" class="d-inline-block">
                             @csrf
                             @method('delete')
                             <button class="btn btn-danger" href="">Elimina definitivamente</button>
-                        </form>
-                        
+                        </form> --}}
+
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal{{ $pasta->id }}">
+                            elimina definitivamente
+                        </button>
+                          
+                          <!-- Modal -->
+                          <div class="modal fade" id="modal{{ $pasta->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel">sei sicuro?</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  la risorsa non potrà piu essere recuperata
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  <form action="{{ route('pastas.hardDelete', ['pasta' => $pasta->id]) }}" method="POST" class="d-inline-block">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="btn btn-danger" href="">Elimina definitivamente</button>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                     </td>
                 </tr>
             @endforeach
